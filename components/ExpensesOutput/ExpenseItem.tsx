@@ -47,6 +47,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold'
   },
   priceContainer: {
+    minWidth: 70,
     paddingHorizontal: 6,
     paddingVertical: 4,
     backgroundColor: 'white',
