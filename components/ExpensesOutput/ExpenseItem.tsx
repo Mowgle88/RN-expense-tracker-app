@@ -9,8 +9,12 @@ interface ExpenseItemProps {
 }
 
 export default function ExpenseItem({ description, amount, date }: ExpenseItemProps) {
+  function expensePressHandler() {
+    alert('pressed item');
+  }
+
   return (
-    <Pressable>
+    <Pressable onPress={expensePressHandler} style={({ pressed }) => pressed && styles.pressed}>
       <View style={styles.expenseItem}>
         <View>
           <Text style={[styles.textBase, styles.description]}>{description}</Text>
@@ -25,6 +29,9 @@ export default function ExpenseItem({ description, amount, date }: ExpenseItemPr
 }
 
 const styles = StyleSheet.create({
+  pressed: {
+    opacity: 0.7
+  },
   expenseItem: {
     padding: 12,
     marginVertical: 8,
