@@ -5,25 +5,35 @@ import { StyleSheet } from 'react-native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from '@expo/vector-icons/Ionicons';
+
 import ManageExpenses from './screens/ManageExpenses';
 import RecentExpenses from './screens/RecentExpenses';
 import AllExpenses from './screens/AllExpenses';
 import { GlobalStyles } from './constants/style';
 import IconButton from './components/UI/IconButton';
+import { OverviewStackParamList, RootStackParamList } from './navigation/types';
 
-const Stack = createNativeStackNavigator();
-const BottomTabs = createBottomTabNavigator();
+const Stack = createNativeStackNavigator<RootStackParamList>();
+const BottomTabs = createBottomTabNavigator<OverviewStackParamList>();
 
 function ExpensesOverview() {
   return (
     <BottomTabs.Navigator
-      screenOptions={{
+      screenOptions={({ navigation }) => ({
         headerStyle: { backgroundColor: GlobalStyles.colors.primary500 },
         headerTintColor: 'white',
         tabBarStyle: { backgroundColor: GlobalStyles.colors.primary500 },
         tabBarActiveTintColor: GlobalStyles.colors.accent500,
-        headerRight: ({ tintColor }) => <IconButton icon={'add-circle-outline'} size={35} color={tintColor!} onPress={() => { alert('pressed button') }} />
-      }}>
+        headerRight: ({ tintColor }) => (
+          <IconButton
+            icon={'add-circle-outline'}
+            size={35}
+            color={tintColor!}
+            onPress={() => {
+              navigation.navigate('ManageExpenses')
+            }}
+          />)
+      })}>
       <BottomTabs.Screen
         name="RecentExpenses"
         component={RecentExpenses}
