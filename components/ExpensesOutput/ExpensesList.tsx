@@ -1,6 +1,8 @@
-import { FlatList, StyleSheet, Text } from 'react-native';
+import { FlatList, StyleSheet } from 'react-native';
 import React from 'react';
 import { IDummyExpenses } from '../../constants/dummyExpenses';
+import ExpenseItem from './ExpenseItem';
+import { getFormattedDate } from '../../util/date';
 
 interface ExpensesListProps {
   expenses: IDummyExpenses[]
@@ -11,8 +13,15 @@ interface renderExpenseItemProps {
 }
 
 function renderExpenseItem({ item }: renderExpenseItemProps) {
+  const props = {
+    description: item.description,
+    amount: item.amount,
+    date: getFormattedDate(item.date)
+    // date: item.date.toLocaleDateString()
+  }
+
   return (
-    <Text>{item.description}</Text>
+    <ExpenseItem {...props} />
   )
 }
 
