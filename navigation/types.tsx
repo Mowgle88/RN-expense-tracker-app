@@ -1,5 +1,5 @@
 import { NavigatorScreenParams } from "@react-navigation/native";
-import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { NativeStackNavigationProp, NativeStackScreenProps } from "@react-navigation/native-stack";
 
 export type OverviewStackParamList = {
   RecentExpenses: undefined,
@@ -8,7 +8,9 @@ export type OverviewStackParamList = {
 
 export type RootStackParamList = {
   ExpensesOverview: NavigatorScreenParams<OverviewStackParamList>,
-  ManageExpenses: undefined,
+  ManageExpenses: { expenseId: string },
 };
 
 export type NavigationProps = NativeStackNavigationProp<RootStackParamList, 'ManageExpenses'>;
+
+export type ExpenseItemProps = NativeStackScreenProps<RootStackParamList, 'ManageExpenses'>;
