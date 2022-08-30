@@ -5,7 +5,7 @@ interface ExpensesContextProviderProps {
   children: React.ReactNode
 }
 
-interface IExpensesContext {
+export interface IExpensesContext {
   expenses: IDummyExpenses[];
   addExpenses: (expensesData: IDummyExpenses) => void;
   updateExpenses: (id: string, expensesData: IDummyExpenses) => void;
@@ -17,7 +17,7 @@ type ACTIONTYPE =
   | { type: "UPDATE"; payload: { id: string, data: IDummyExpenses } }
   | { type: "DELETE"; payload: string };
 
-export const ExpensesContext = createContext<IExpensesContext | null>({
+export const ExpensesContext = createContext<IExpensesContext>({
   expenses: [],
   addExpenses: ({ description, amount, date }: IDummyExpenses) => { },
   deleteExpenses: (id: string) => { },
