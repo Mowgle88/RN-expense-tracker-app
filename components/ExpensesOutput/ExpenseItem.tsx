@@ -6,16 +6,19 @@ import { GlobalStyles } from '../../constants/style';
 import { NavigationProps } from '../../navigation/types';
 
 interface ExpenseItemProps {
+  id: string,
   description: string,
   amount: number,
   date: string
 }
 
-export default function ExpenseItem({ description, amount, date }: ExpenseItemProps) {
+export default function ExpenseItem({ id, description, amount, date }: ExpenseItemProps) {
   const navigation = useNavigation<NavigationProps>();
 
   function expensePressHandler() {
-    navigation.navigate('ManageExpenses');
+    navigation.navigate('ManageExpenses', {
+      expenseId: id
+    });
   }
 
   return (

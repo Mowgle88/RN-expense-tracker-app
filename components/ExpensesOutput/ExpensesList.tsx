@@ -14,6 +14,7 @@ interface renderExpenseItemProps {
 
 function renderExpenseItem({ item }: renderExpenseItemProps) {
   const props = {
+    id: item.id,
     description: item.description,
     amount: item.amount,
     date: getFormattedDate(item.date)
