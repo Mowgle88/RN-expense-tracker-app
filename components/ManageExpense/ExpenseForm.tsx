@@ -7,22 +7,27 @@ export default function ExpenseForm() {
   function amountChandedHandler() { }
 
   return (
-    <View>
-      <CustomInput
-        label='Amount'
-        textInputConfig={{
-          keyboardType: 'decimal-pad',
-          onChangeText: amountChandedHandler
-        }}
-      />
-      <CustomInput
-        label='Date'
-        textInputConfig={{
-          placeholder: 'YYYY-MM-DD',
-          maxLength: 10,
-          onChangeText: () => { }
-        }}
-      />
+    <View style={styles.form}>
+      <Text style={styles.title}>Your Expense</Text>
+      <View style={styles.inputRow}>
+        <CustomInput
+          style={styles.rowInput}
+          label='Amount'
+          textInputConfig={{
+            keyboardType: 'decimal-pad',
+            onChangeText: amountChandedHandler
+          }}
+        />
+        <CustomInput
+          style={styles.rowInput}
+          label='Date'
+          textInputConfig={{
+            placeholder: 'YYYY-MM-DD',
+            maxLength: 10,
+            onChangeText: () => { }
+          }}
+        />
+      </View>
       <CustomInput
         label='Dexcription'
         textInputConfig={{
@@ -35,4 +40,22 @@ export default function ExpenseForm() {
   )
 }
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+  form: {
+    marginVertical: 10
+  },
+  title: {
+    marginVertical: 24,
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: 'white',
+    textAlign: 'center'
+  },
+  inputRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between'
+  },
+  rowInput: {
+    flex: 1
+  }
+})

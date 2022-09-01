@@ -4,10 +4,11 @@ import { GlobalStyles } from '../../constants/style';
 
 interface CustomInputProps {
   label: string,
-  textInputConfig?: TextInputProps
+  textInputConfig?: TextInputProps,
+  style?: StyleProp<ViewStyle>
 }
 
-export default function CustomInput({ label, textInputConfig }: CustomInputProps) {
+export default function CustomInput({ label, textInputConfig, style }: CustomInputProps) {
 
   const InputStyles: StyleProp<ViewStyle> = [styles.input];
 
@@ -16,7 +17,7 @@ export default function CustomInput({ label, textInputConfig }: CustomInputProps
   }
 
   return (
-    <View style={styles.inputContainer}>
+    <View style={[styles.inputContainer, style]}>
       <Text style={styles.label}>{label}</Text>
       <TextInput style={InputStyles} {...textInputConfig} />
     </View>
