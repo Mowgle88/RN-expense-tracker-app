@@ -14,7 +14,7 @@ interface renderExpenseItemProps {
 
 function renderExpenseItem({ item }: renderExpenseItemProps) {
   const props = {
-    id: item.id,
+    id: item.id as string,
     description: item.description,
     amount: item.amount,
     date: getFormattedDate(item.date)
@@ -31,7 +31,7 @@ export default function ExpensesList({ expenses }: ExpensesListProps) {
     <FlatList
       data={expenses}
       renderItem={renderExpenseItem}
-      keyExtractor={(item) => item.id}
+      keyExtractor={(item) => item.id as string}
     />
   )
 }
