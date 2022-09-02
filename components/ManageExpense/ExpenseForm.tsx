@@ -3,18 +3,20 @@ import React, { useState } from 'react'
 import CustomInput from './CustomInput'
 import CustomButton from '../UI/CustomButton';
 import { IDummyExpenses } from '../../constants/dummyExpenses';
+import { getFormattedDate } from '../../util/date';
 
 interface ExpenseFormProps {
   onCancel: () => void,
   onSubmit: (expenseData: IDummyExpenses) => void,
-  submitButtonLabel: string
+  submitButtonLabel: string,
+  defaultValues: IDummyExpenses
 }
 
-export default function ExpenseForm(this: any, { onCancel, onSubmit, submitButtonLabel }: ExpenseFormProps) {
+export default function ExpenseForm(this: any, { onCancel, onSubmit, submitButtonLabel, defaultValues }: ExpenseFormProps) {
   const [inputValue, setAmountValue] = useState({
-    amount: '',
-    date: '',
-    description: '',
+    amount: defaultValues ? defaultValues.amount.toString() : '',
+    date: defaultValues ? getFormattedDate(defaultValues.date) : '',
+    description: defaultValues ? defaultValues.description : '',
   });
 
   function inputChandedHandler(inputIdentifier: string, enteredVales: string) {
@@ -52,6 +54,7 @@ export default function ExpenseForm(this: any, { onCancel, onSubmit, submitButto
           style={styles.rowInput}
           label='Date'
           textInputConfig={{
+            keyboardType: 'decimal-pad',
             placeholder: 'YYYY-MM-DD',
             maxLength: 10,
             onChangeText: inputChandedHandler.bind(this, 'date'),
