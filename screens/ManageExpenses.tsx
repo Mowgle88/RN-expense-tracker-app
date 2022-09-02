@@ -5,6 +5,7 @@ import IconButton from '../components/UI/IconButton';
 import { GlobalStyles } from '../constants/style';
 import { ExpensesContext } from '../store/expenses-context';
 import ExpenseForm from '../components/ManageExpense/ExpenseForm';
+import { IDummyExpenses } from '../constants/dummyExpenses';
 
 export default function ManageExpenses({ route, navigation }: ExpenseItemProps) {
   const expensesCtx = useContext(ExpensesContext);
@@ -27,24 +28,11 @@ export default function ManageExpenses({ route, navigation }: ExpenseItemProps) 
     navigation.goBack();
   }
 
-  function confirmHandler() {
+  function confirmHandler(expenseData: IDummyExpenses) {
     if (isEditing) {
-      expensesCtx.updateExpenses(
-        editedExpenseId,
-        {
-          description: 'Update Test',
-          amount: 29.99,
-          date: new Date('2022-08-31')
-        }
-      );
+      expensesCtx.updateExpenses(editedExpenseId, expenseData);
     } else {
-      expensesCtx.addExpenses(
-        {
-          description: 'Add Test',
-          amount: 19.99,
-          date: new Date('2022-08-30')
-        }
-      );
+      expensesCtx.addExpenses(expenseData);
     }
     navigation.goBack();
   }

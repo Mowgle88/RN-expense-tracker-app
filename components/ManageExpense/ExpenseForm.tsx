@@ -2,10 +2,11 @@ import { StyleSheet, Text, View } from 'react-native'
 import React, { useState } from 'react'
 import CustomInput from './CustomInput'
 import CustomButton from '../UI/CustomButton';
+import { IDummyExpenses } from '../../constants/dummyExpenses';
 
 interface ExpenseFormProps {
   onCancel: () => void,
-  onSubmit: () => void,
+  onSubmit: (expenseData: IDummyExpenses) => void,
   submitButtonLabel: string
 }
 
@@ -26,7 +27,12 @@ export default function ExpenseForm(this: any, { onCancel, onSubmit, submitButto
   }
 
   function submitHandler() {
-    onSubmit();
+    const expenseData = {
+      amount: +inputValue.amount,
+      date: new Date(inputValue.date),
+      description: inputValue.description
+    }
+    onSubmit(expenseData);
   }
 
   return (
