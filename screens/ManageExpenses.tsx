@@ -1,12 +1,12 @@
-import { StyleSheet, View } from 'react-native'
-import React, { useContext, useLayoutEffect } from 'react'
-import { ExpenseItemProps } from '../navigation/types'
+import { StyleSheet, View } from 'react-native';
+import React, { useContext, useLayoutEffect } from 'react';
+import { ExpenseItemProps } from '../navigation/types';
 import IconButton from '../components/UI/IconButton';
 import { GlobalStyles } from '../constants/style';
 import { ExpensesContext } from '../store/expenses-context';
 import ExpenseForm from '../components/ManageExpense/ExpenseForm';
 import { IDummyExpenses } from '../constants/dummyExpenses';
-import { storeExpenses } from '../util/http';
+import { deleteExpense, storeExpenses, updateExpense } from '../util/http';
 
 export default function ManageExpenses({ route, navigation }: ExpenseItemProps) {
   const expensesCtx = useContext(ExpensesContext);
@@ -24,8 +24,9 @@ export default function ManageExpenses({ route, navigation }: ExpenseItemProps) 
     })
   }, [navigation, isEditing]);
 
-  function deleteExpenseHandler() {
+  async function deleteExpenseHandler() {
     expensesCtx.deleteExpenses(editedExpenseId);
+    await deleteExpense(editedExpenseId);
     navigation.goBack();
   }
 
@@ -36,6 +37,7 @@ export default function ManageExpenses({ route, navigation }: ExpenseItemProps) 
   async function confirmHandler(expenseData: IDummyExpenses) {
     if (isEditing) {
       expensesCtx.updateExpenses(editedExpenseId, expenseData);
+      await updateExpense(editedExpenseId, expenseData);
     } else {
       const id = await storeExpenses(expenseData);
       expensesCtx.addExpenses({ ...expenseData, id: id });
