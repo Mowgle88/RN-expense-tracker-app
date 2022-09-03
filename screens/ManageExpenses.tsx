@@ -33,12 +33,12 @@ export default function ManageExpenses({ route, navigation }: ExpenseItemProps) 
     navigation.goBack();
   }
 
-  function confirmHandler(expenseData: IDummyExpenses) {
+  async function confirmHandler(expenseData: IDummyExpenses) {
     if (isEditing) {
       expensesCtx.updateExpenses(editedExpenseId, expenseData);
     } else {
-      storeExpenses(expenseData);
-      expensesCtx.addExpenses(expenseData);
+      const id = await storeExpenses(expenseData);
+      expensesCtx.addExpenses({ ...expenseData, id: id });
     }
     navigation.goBack();
   }
